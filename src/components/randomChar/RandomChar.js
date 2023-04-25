@@ -19,7 +19,7 @@ class RandomChar extends React.Component {
 
     marvelService = new MarvelService();
 
-    onChatLoaded = (char) => {
+    onCharLoaded = (char) => {
         this.setState({char: char});
     }
 
@@ -27,7 +27,7 @@ class RandomChar extends React.Component {
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
         this.marvelService
             .getCharacter(id)
-            .then(this.onChatLoaded)
+            .then(this.onCharLoaded);
     }
 
     render() {

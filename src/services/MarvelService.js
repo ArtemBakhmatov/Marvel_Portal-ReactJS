@@ -27,7 +27,7 @@ class MarvelService {
     _transformCharacter = (char) => {       // вывести данные о персонаже
         return {
             name: char.name,                 // имя 
-            description: char.description,   // описание
+            description: char.description ? `${char.description.slice(0, 210)}...` : 'There is no description for this character',   // описание
             thumbnail: char.thumbnail.path + '.' + char.thumbnail.extension, // изобраражение
             homepage: char.urls[0].url,      // ссылка
             wiki: char.urls[1].url           // ссылка
@@ -36,3 +36,6 @@ class MarvelService {
 };
 
 export default MarvelService;
+
+// для самостоятельной работы: если есть описание персонажа на сервере , то выводит 210 символов с тремя точками,
+// если нет описание на сервере то выводит запись 'There is no description for this character' строка 30
