@@ -9,7 +9,6 @@ import mjolnir from '../../resources/img/mjolnir.png';
 class RandomChar extends React.Component {
     constructor(props) {
         super(props);
-        this.updateChar();      // вызвали функцию 
         this.state = {
             char: {},
             loading: true,
@@ -19,6 +18,15 @@ class RandomChar extends React.Component {
 
     marvelService = new MarvelService();
 
+    componentDidMount() {  // компонент появился на странице (он из реакт встроенный)
+        this.updateChar();
+        // this.timerId = setInterval(this.updateChar, 15000);
+    }
+
+    componentWillUnmount() { // компонент был удален (он из реакт встроенный)
+        clearInterval(this.timerId);
+    }
+
     onCharLoaded = (char) => {
         this.setState({char: char, loading: false});
     }
@@ -27,7 +35,7 @@ class RandomChar extends React.Component {
         this.setState({loading: false, error: true});
     }
 
-    updateChar = () => {
+    updateChar = () => {       // обновить персонаж
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
         this.marvelService
             .getCharacter(id)
@@ -66,6 +74,7 @@ class RandomChar extends React.Component {
 
 const View = ({char}) => {
     const {name, description, thumbnail, homepage, wiki} = char;
+
     return (
         <div className="randomchar__block">
             <img src={thumbnail} alt="Random character" className="randomchar__img"/>
