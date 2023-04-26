@@ -19,6 +19,7 @@ class CharList extends React.Component {
     marvelService = new MarvelService();
 
     componentDidMount() {
+        this.foo.bar = 0; // тут просто добовили неизветсную пер-ю, для того чтобы поломать компонент
         this.marvelService.getAllCharacters()
             .then(this.onCharListLoaded)
             .catch(this.onError)
