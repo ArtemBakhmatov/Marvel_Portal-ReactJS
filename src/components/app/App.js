@@ -1,45 +1,27 @@
-import { useState } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+import { MainPage, ComicsPage } from "../pages";
 import AppHeader from "../appHeader/AppHeader";
-import RandomChar from "../randomChar/RandomChar";
-import CharList from "../charList/CharList";
-import CharInfo from "../charInfo/CharInfo";
-import ErrorBoundary from "../errorBoundary/ErrorBoundary";
-import ComicsList from "../comicsList/ComicsList";
-import AppBanner from "../appBanner/AppBanner";
-
-import decoration from '../../resources/img/vision.png';
 
 const App = () => {
 
-    const [selectedChar, setChar] = useState(null);
-    
-    const onCharSelected = (id) => {
-        setChar(id);
-    }
- 
     return (
-        <div className="app">
-            <AppHeader/>
-            <main>
-                <ErrorBoundary>
-                    <RandomChar/>
-                </ErrorBoundary>
-                <div className="char__content">
-                    <ErrorBoundary>
-                        <CharList onCharSelected={onCharSelected} />
-                    </ErrorBoundary>
-                    
-                    <ErrorBoundary>
-                        <CharInfo charId={selectedChar} />
-                    </ErrorBoundary>
-                </div>
-                <img className="bg-decoration" src={decoration} alt="vision"/>
+        <Router>
+            <div className="app">
+                <AppHeader/>
+                <main>
+                    <Switch>
+                        <Route exact path="/">
+                            <MainPage/>
+                        </Route>
 
-                {/* <AppBanner />
-                <ComicsList /> */}
-            </main>
-        </div>
+                        <Route exact path="/comics">
+                            <ComicsPage/>
+                        </Route>
+                    </Switch>
+                </main>
+            </div>
+        </Router>
     )  
 }
 
@@ -47,3 +29,12 @@ export default App;
 
 // Что бы обновить реакт до последней версии , нужно ввести команду:
 // npm i react@latest react-dom@latest --save
+
+// Чтобы установить react-router последней версии тоесть шестая версия:
+// npm i react-router-dom --save
+
+// Но так как не получилось реализовать результат, пришлось удалить последнюю версию:
+// npm uninstall react-router-dom
+
+// Установил пятую версию и всё сработало:
+// npm install react-router-dom@5.2.0
